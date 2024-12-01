@@ -1,0 +1,45 @@
+swagger: "2.0"
+info:
+  title: "Text-to-Image API"
+  description: "API for generating images using Vertex AI."
+  version: "1.0.0"
+host: text-to-image-api.endpoints.texttoimagegenerator.cloud.goog
+schemes:
+  - https
+paths:
+  /api/generate-image:
+    post:
+      summary: "Generate an image from text"
+      description: "Accepts a JSON payload containing a text prompt and generates an image."
+      operationId: "generateImage"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              text:
+                type: string
+              height:
+                type: integer
+              width:
+                type: integer
+              steps:
+                type: integer
+              scale:
+                type: number
+      responses:
+        "200":
+          description: "Successful response"
+        "400":
+          description: "Invalid input"
+        "500":
+          description: "Server error"
+      x-google-backend:
+        address: https://vertex-image-generator-976986377870.asia-east1.run.app
+        protocol: h2
